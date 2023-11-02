@@ -1,24 +1,37 @@
 import {
   AuthError,
-  SignInPayload,
-  SignInResponse,
-  SignUpPayload,
-  SignUpResponse,
-} from '@/schemas/authSchema';
+  AuthSignInPayload,
+  AuthSignInResponse,
+  AuthSignUpPayload,
+  AuthSignUpResponse,
+} from '@/schemas';
 import z from 'zod';
 
+/* Refactor */
 export type AuthState = {
-  auth: SignUpResponse | SignInResponse | null;
+  auth: AuthSignInResponse | null;
   error: string | null;
   loading: boolean;
+  token: string | null;
 };
 export type AuthError = z.infer<typeof AuthError>;
 
-export type SignUpPayload = z.infer<typeof SignUpPayload>;
-export type SignUpResponse = {
-  data: z.infer<typeof SignUpResponse>;
-  message: string;
+export type AuthSignUpPayload = z.infer<typeof AuthSignUpPayload>;
+
+export type AuthSignUpRequest = {
+  body: AuthSignUpPayload;
 };
 
-export type SignInPayload = z.infer<typeof SignInPayload>;
-export type SignInResponse = z.infer<typeof SignInResponse>;
+export type AuthSignUpResponse = {
+  data: z.infer<typeof AuthSignUpResponse>;
+};
+
+export type AuthSignInPayload = z.infer<typeof AuthSignInPayload>;
+
+export type AuthSignInRequest = {
+  body: AuthSignInPayload;
+};
+
+export type AuthSignInResponse = {
+  data: z.infer<typeof AuthSignInResponse>;
+};

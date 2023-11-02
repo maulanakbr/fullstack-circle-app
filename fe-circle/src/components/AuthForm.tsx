@@ -9,56 +9,69 @@ import {
   Heading,
   HStack,
   Text,
+  useToast,
 } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '@/app/hook';
-import {
-  // selectError,
-  // selectLoading,
-  selectAuth,
-  signIn,
-  signUp,
-} from '@/app/slices/authSlice';
+import { authApi } from '@/app/apis';
+import { useAppSelector } from '@/app/hook';
+import { selectAuth } from '@/app/slices/authSlice';
 
 import { FormInput, NavLink } from './ui';
 
 export default function AuthForm(props: HomeProps) {
-  const { register, handleSubmit } = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-      username: '',
-      fullname: '',
-    },
+  const [authForm, setAuthForm] = React.useState({
+    email: '',
+    password: '',
+    username: '',
+    fullname: '',
   });
 
-  const dispatch = useAppDispatch();
+  const toast = useToast();
+
+  const [signUp] = authApi.useSignUpMutation();
+  const [signIn, { error }] = authApi.useSignInMutation();
+
   const user = useAppSelector(selectAuth);
   const navigate = useNavigate();
 
-  const handleAuth = handleSubmit(
-    async ({ email, password, username, fullname }) => {
-      if (props.auth === 'signup') {
-        dispatch(signUp({ email, password, username, fullname }));
-        navigate('/');
-      } else {
-        dispatch(signIn({ email, password }));
-        navigate('/dashboard');
+  const handleFormChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    key: keyof typeof authForm
+  ) => {
+    setAuthForm(prevState => ({
+      ...prevState,
+      [key]: e.target.value,
+    }));
+  };
 
-        if (user && 'token' in user) {
-          localStorage.setItem('token', JSON.stringify(user.token));
-        }
-      }
+  const handleAuth = async (e: React.FormEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    const { email, password, username, fullname } = authForm;
+
+    if (props.auth === 'signup') {
+      signUp({ body: { email, password, username, fullname } });
+      navigate('/');
+    } else {
+      signIn({ body: { email, password } }).unwrap();
     }
-  );
+  };
+
+  if (error && error instanceof Error) {
+    toast({
+      title: error.message,
+      position: 'bottom-right',
+      colorScheme: 'red',
+    });
+  }
 
   React.useEffect(() => {
     if (user) {
       navigate('/dashboard');
+      toast({ title: 'Success sign in!', position: 'bottom-right' });
     }
-  }, [user, navigate]);
+  }, [user, navigate, toast]);
 
   return (
     <Card
@@ -88,28 +101,40 @@ export default function AuthForm(props: HomeProps) {
           <FormInput
             label="Email address"
             type="email"
+            name="email"
             placeholder="Enter your email address"
-            {...register('email')}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleFormChange(e, 'email')
+            }
           />
           <FormInput
             label="Password"
             type="password"
+            name="password"
             placeholder="Enter your password"
-            {...register('password')}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              handleFormChange(e, 'password')
+            }
           />
           {props.auth === 'signup' && (
             <>
               <FormInput
                 label="Username"
                 type="text"
+                name="username"
                 placeholder="Enter your username"
-                {...register('username')}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleFormChange(e, 'username')
+                }
               />
               <FormInput
                 label="Fullname"
                 type="text"
+                name="fullname"
                 placeholder="Enter your fullname"
-                {...register('fullname')}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  handleFormChange(e, 'fullname')
+                }
               />
             </>
           )}

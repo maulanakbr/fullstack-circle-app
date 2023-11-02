@@ -1,5 +1,9 @@
 import {
   AuthError,
+  AuthSignInPayload,
+  AuthSignInResponse,
+  AuthSignUpPayload,
+  AuthSignUpResponse,
   SignInPayload,
   SignInResponse,
   SignUpPayload,
@@ -10,6 +14,10 @@ import { ThreadPayload, ThreadResponse } from './threadSchema';
 
 export {
   AuthError,
+  AuthSignUpPayload,
+  AuthSignUpResponse,
+  AuthSignInPayload,
+  AuthSignInResponse,
   ReplyPayload,
   SignInPayload,
   SignInResponse,

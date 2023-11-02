@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import { authApi } from './apis';
 import { threadApi } from './apis/threadApi';
 import { authReducer, threadReducer, userReducer } from './slices';
 
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   thread: threadReducer,
   user: userReducer,
   [threadApi.reducerPath]: threadApi.reducer,
+  [authApi.reducerPath]: authApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -25,7 +27,7 @@ export const store = configureStore({
   middleware: getDefaultMiddleware => {
     return getDefaultMiddleware({
       serializableCheck: false,
-    }).concat(threadApi.middleware);
+    }).concat(threadApi.middleware, authApi.middleware);
   },
 });
 

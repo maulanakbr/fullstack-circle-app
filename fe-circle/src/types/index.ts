@@ -1,4 +1,10 @@
 import type {
+  AuthSignInPayload,
+  AuthSignInRequest,
+  AuthSignInResponse,
+  AuthSignUpPayload,
+  AuthSignUpRequest,
+  AuthSignUpResponse,
   AuthState,
   SignInPayload,
   SignInResponse,
@@ -17,6 +23,12 @@ type ErrorValue = {
 
 export type {
   AuthState,
+  AuthSignUpPayload,
+  AuthSignUpRequest,
+  AuthSignUpResponse,
+  AuthSignInPayload,
+  AuthSignInRequest,
+  AuthSignInResponse,
   ErrorValue,
   FetchUserResponse,
   FollowPayload,

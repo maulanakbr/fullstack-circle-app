@@ -23,21 +23,22 @@ export const UserResponse = z.object({
     .array(),
 });
 
-export const SignUpPayload = z.object({
+/* Refactor */
+export const AuthSignUpPayload = z.object({
   email: z.string(),
   password: z.string(),
   username: z.string(),
   fullname: z.string(),
 });
 
-export const SignInPayload = SignUpPayload.pick({
+export const AuthSignUpResponse = UserResponse;
+
+export const AuthSignInPayload = AuthSignUpPayload.pick({
   email: true,
   password: true,
 });
 
-export const SignUpResponse = UserResponse;
-
-export const SignInResponse = z.object({
+export const AuthSignInResponse = z.object({
   user: z.object({
     data: UserResponse,
     token: z.string(),
