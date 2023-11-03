@@ -32,6 +32,4 @@ export type AuthSignInRequest = {
   body: AuthSignInPayload;
 };
 
-export type AuthSignInResponse = {
-  data: z.infer<typeof AuthSignInResponse>;
-};
+export type AuthSignInResponse = z.infer<typeof AuthSignInResponse>;

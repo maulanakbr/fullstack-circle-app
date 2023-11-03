@@ -6,8 +6,9 @@ import {
   FormControl,
   Image,
   Input,
-  // InputGroup,
+  Spinner,
 } from '@chakra-ui/react';
+import { ImagePlus } from 'lucide-react';
 
 import { threadApi } from '@/app/apis/threadApi';
 import { useAppSelector } from '@/app/hook';
@@ -23,6 +24,9 @@ export default function PostThread() {
     content: '',
     image: '',
   });
+
+  const inputFile = React.useRef<HTMLInputElement>(null);
+
   const [createThread, { isLoading }] = threadApi.useCreateThreadMutation();
 
   const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,8 +63,6 @@ export default function PostThread() {
       content: '',
       image: '',
     });
-
-    console.log(isLoading);
   };
 
   return (
@@ -93,23 +95,35 @@ export default function PostThread() {
           border="none"
           _focusVisible={{ border: 'none' }}
           onChange={onChangeContent}
-          // {...register('content')}
         />
       </FormControl>
-      <FormControl>
-        {/* <InputGroup> */}
+      <FormControl maxW="10.5rem">
+        <Button
+          mr="1rem"
+          onClick={() => {
+            inputFile.current?.click();
+          }}
+        >
+          <ImagePlus />
+        </Button>
         <Input
           type="file"
           name="image"
+          display="none"
+          ref={inputFile}
           onChange={onChangeImage}
         />
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <Button
+            bg="brand.700"
+            type="submit"
+          >
+            Post
+          </Button>
+        )}
       </FormControl>
-      <Button
-        bg="brand.700"
-        type="submit"
-      >
-        Post
-      </Button>
     </Box>
   );
 }

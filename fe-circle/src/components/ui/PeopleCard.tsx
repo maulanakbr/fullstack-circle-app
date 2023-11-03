@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { SignInResponse } from '@/types';
 import { Box, Button, Heading, Image, Text } from '@chakra-ui/react';
+import { Image as ImageIcon } from 'lucide-react';
 
 import { threadApi } from '@/app/apis/threadApi';
 import { useAppSelector } from '@/app/hook';
@@ -47,14 +48,21 @@ export default function PeopleCard(props: PeopleCardProps) {
             display="flex"
             gap={3}
           >
-            <Image
-              src={user.user_image}
-              alt="profile-pic"
-              w="2.5rem"
-              h="2.5rem"
-              rounded="100%"
-              objectFit="cover"
-            />
+            {user.user_image ? (
+              <Image
+                src={user.user_image}
+                alt="profile-pic"
+                w="2.5rem"
+                h="2.5rem"
+                rounded="100%"
+                objectFit="cover"
+              />
+            ) : (
+              <ImageIcon
+                width="40px"
+                size="27px"
+              />
+            )}
             <Box w="10rem">
               <Heading
                 as="h3"

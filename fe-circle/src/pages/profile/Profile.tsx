@@ -1,26 +1,17 @@
-import * as React from 'react';
-import {
-  Box,
-  Button,
-  Heading,
-  Image,
-  Text,
-  type BoxProps,
-} from '@chakra-ui/react';
+import { AuthSignInResponse } from '@/types';
+import { Box, Button, Heading, Image, Text } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 import { useAppSelector } from '@/app/hook';
 import { selectAuth } from '@/app/slices/authSlice';
 
-interface ProfileCardProps extends React.ComponentProps<'div'> {}
-
-export default function ProfileCard(props: ProfileCardProps) {
-  const authSelector = useAppSelector(selectAuth);
-  const auth = authSelector?.user;
+export default function Profile() {
+  const authSelector = useAppSelector(selectAuth) as AuthSignInResponse | null;
+  const auth = authSelector?.data && authSelector?.data.user;
 
   return (
     <Box
-      {...(props as BoxProps)}
+      {...props}
       bgColor="#313131"
       h="20rem"
       p={6}

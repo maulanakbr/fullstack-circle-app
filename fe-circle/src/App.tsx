@@ -1,4 +1,4 @@
-import { Dashboard, Home } from '@/pages';
+import { Dashboard, Home, Profile } from '@/pages';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
@@ -14,6 +14,10 @@ function App() {
     {
       path: '/dashboard',
       element: <Dashboard />,
+    },
+    {
+      path: '/profile/:id',
+      element: <Profile />,
     },
   ]);
 

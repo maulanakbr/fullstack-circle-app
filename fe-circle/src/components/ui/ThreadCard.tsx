@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { SignInResponse } from '@/types';
-import { Box, Button, Heading, Image, Text } from '@chakra-ui/react';
+import { Box, Button, Heading, Image, Spinner, Text } from '@chakra-ui/react';
 import { Heart, MenuSquare } from 'lucide-react';
 
 import { ReplyRequest } from '@/types/reply';
@@ -14,6 +14,10 @@ import PostReplyForm from './PostReplyForm';
 interface ThreadCardProps extends React.ComponentProps<'div'> {}
 
 export default function ThreadCard(props: ThreadCardProps) {
+  const { data: threads, isLoading: loadingThread } =
+    threadApi.useFetchThreadsQuery(null);
+
+  const [isLike, setIsLike] = React.useState<boolean>(false);
   const [showReplyForm, setShowReplyForm] = React.useState<boolean>(false);
   const [postReply, setPostReply] = React.useState<ReplyRequest>({
     content: '',
@@ -23,17 +27,12 @@ export default function ThreadCard(props: ThreadCardProps) {
 
   const authSelector = useAppSelector(selectAuth) as SignInResponse | null;
   const auth = authSelector && authSelector.user;
-  // const { data: threads } = threadApi.useFetchThreadsBelongToUserQuery({
-  //   token: auth?.token as string,
-  // });
 
-  const { data: threads } = threadApi.useFetchThreadsQuery(null);
-  const [createLike, { isLoading }] = threadApi.useCreateLikeMutation();
+  const [createLike] = threadApi.useCreateLikeMutation();
   const [createReply, { status }] = threadApi.useCreateReplyMutation();
 
   const handleShowReplyForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
     setShowReplyForm(prevState => !prevState);
   };
 
@@ -43,7 +42,8 @@ export default function ThreadCard(props: ThreadCardProps) {
   ) => {
     e.preventDefault();
     createLike({ token: auth?.token as string, body: { thread } });
-    console.log(isLoading);
+
+    setIsLike(prevState => !prevState);
   };
 
   const handleReplyChange = (
@@ -116,16 +116,18 @@ export default function ThreadCard(props: ThreadCardProps) {
                 </Text>
               </Box>
               <Box mb={3}>
-                {thread.image ? (
+                {loadingThread ? (
+                  <Spinner />
+                ) : thread.image ? (
                   <Image
-                    src={thread.image as string}
+                    src={thread.image}
                     alt={thread.id}
-                    minW="100%"
-                    maxH="5rem"
+                    w="40vw"
+                    maxH="25rem"
                     objectFit="cover"
+                    mb={3}
                   />
                 ) : null}
-
                 <Text
                   fontSize="sm"
                   mb={3}
@@ -149,9 +151,9 @@ export default function ThreadCard(props: ThreadCardProps) {
                       }
                     >
                       <Heart
-                        stroke="0px"
                         size={16}
-                        fill="#e24747"
+                        color="#e24747"
+                        fill={isLike ? '#e24747' : '#141414'}
                       />
                     </Button>
                     <Text fontSize="sm">

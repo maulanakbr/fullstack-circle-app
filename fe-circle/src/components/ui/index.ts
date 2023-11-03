@@ -1,5 +1,6 @@
 export { default as FormInput } from './FormInput';
-export { default as Navbar } from './Navbar';
+export { default as SidebarLeft } from './SidebarLeft';
+export { default as SidebarRight } from './SidebarRight';
 export { default as NavLink } from './NavLink';
 export { default as PeopleCard } from './PeopleCard';
 export { default as PostThreadForm } from './PostThreadForm';

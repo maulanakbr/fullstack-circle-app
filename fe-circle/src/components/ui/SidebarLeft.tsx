@@ -8,15 +8,13 @@ import {
 } from '@chakra-ui/react';
 import { Heart, Home, LogOut, Search, User2 } from 'lucide-react';
 
-// import { useNavigate } from 'react-router-dom';
-
 import { navMenu } from '@/lib/menu';
 import { useAppDispatch } from '@/app/hook';
 import { signOut } from '@/app/slices/authSlice';
 
-interface NavbarProps extends React.ComponentProps<'nav'> {}
+interface SidebarLeftProps extends React.ComponentProps<'nav'> {}
 
-export default function Navbar(props: NavbarProps) {
+export default function SidebarLeft(props: SidebarLeftProps) {
   const dispatch = useAppDispatch();
 
   const handleSignout = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -28,7 +26,7 @@ export default function Navbar(props: NavbarProps) {
     <Box
       {...props}
       as="nav"
-      maxW="10rem"
+      position="fixed"
       p="1rem"
       display="flex"
       flexDirection="column"
@@ -41,7 +39,7 @@ export default function Navbar(props: NavbarProps) {
       >
         <ListItem mb={8}>
           <Heading
-            color="#04a51e"
+            color="brands.primary"
             fontSize="3xl"
           >
             circle
@@ -70,22 +68,18 @@ export default function Navbar(props: NavbarProps) {
           </ListItem>
         ))}
         <ListItem>
+          {/* <Button color="inherit">Create Account</Button> */}
           <Button
-            bgColor="#04a51e"
+            leftIcon={<LogOut width="100%" />}
             color="inherit"
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+              handleSignout(e)
+            }
           >
-            Create Account
+            Logout
           </Button>
         </ListItem>
       </UnorderedList>
-      <Button
-        leftIcon={<LogOut width="100%" />}
-        bgColor="inherit"
-        color="inherit"
-        onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleSignout(e)}
-      >
-        Logout
-      </Button>
     </Box>
   );
 }

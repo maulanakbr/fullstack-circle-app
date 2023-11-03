@@ -6,10 +6,6 @@ import type {
   AuthSignUpRequest,
   AuthSignUpResponse,
   AuthState,
-  SignInPayload,
-  SignInResponse,
-  SignUpPayload,
-  SignUpResponse,
 } from './auth';
 import type { FollowPayload, FollowResponse } from './follow';
 import type { LikePayload } from './like';
@@ -37,10 +33,6 @@ export type {
   ReplyPayload,
   ReplyRequest,
   ReplyResponse,
-  SignInPayload,
-  SignInResponse,
-  SignUpPayload,
-  SignUpResponse,
   ThreadState,
   ThreadPayload,
   ThreadResponse,

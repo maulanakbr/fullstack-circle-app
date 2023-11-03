@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { Box } from '@chakra-ui/react';
 
-import { ProfileCard, SuggestionCard } from './ui';
+import { ProfileCard, SuggestionCard } from '.';
 
-interface FeaturedProps extends React.ComponentProps<'div'> {}
+interface SidebarRightProps extends React.ComponentProps<'div'> {}
 
-export default function Featured(props: FeaturedProps) {
+export default function SidebarRight(props: SidebarRightProps) {
   return (
     <Box
       {...props}
-      w="100%"
+      position="fixed"
+      right="2"
+      p="1rem"
       display="flex"
       flexDir="column"
       gap={4}
