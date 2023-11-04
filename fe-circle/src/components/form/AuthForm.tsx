@@ -12,13 +12,8 @@ import {
   useToast,
 } from '@chakra-ui/react';
 
-// import { useNavigate } from 'react-router-dom';
-
 import useAuth from '@/hooks/useAuth';
 import { authApi } from '@/app/apis';
-
-// import { useAppSelector } from '@/app/hook';
-// import { selectAuth } from '@/app/slices/authSlice';
 
 import { InputForm } from '.';
 import { NavLink } from '../ui';
@@ -36,9 +31,6 @@ export default function AuthForm(props: HomeProps) {
 
   const [signUp] = authApi.useSignUpMutation();
   const [signIn, { error }] = authApi.useSignInMutation();
-
-  // const user = useAppSelector(selectAuth);
-  // const navigate = useNavigate();
 
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -70,13 +62,6 @@ export default function AuthForm(props: HomeProps) {
       colorScheme: 'red',
     });
   }
-
-  // React.useEffect(() => {
-  //   if (user) {
-  //     navigate('/dashboard');
-  //     toast({ title: 'Success sign in!', position: 'bottom-right' });
-  //   }
-  // }, [user, navigate, toast]);
 
   return (
     <Card

@@ -1,10 +1,8 @@
-// import { Grid } from '@chakra-ui/react';
-
 import { GridItem } from '@chakra-ui/react';
 
 import useAuth from '@/hooks/useAuth';
 import { GridContainer } from '@/components/layout';
-import { Threads } from '@/components/section';
+import { ThreadSection } from '@/components/section';
 
 export default function Timeline() {
   useAuth({});
@@ -15,7 +13,7 @@ export default function Timeline() {
         colStart={2}
         colEnd={5}
       >
-        <Threads />
+        <ThreadSection />
       </GridItem>
     </GridContainer>
   );

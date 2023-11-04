@@ -29,7 +29,7 @@ export default function PostThreadForm(props: PostThreadFormProps) {
 
   const inputFile = React.useRef<HTMLInputElement>(null);
 
-  const [createThread] = threadApi.useCreateThreadMutation();
+  const [createThread, { isLoading }] = threadApi.useCreateThreadMutation();
 
   const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm(prevState => ({
@@ -76,7 +76,10 @@ export default function PostThreadForm(props: PostThreadFormProps) {
       display="flex"
       alignItems="center"
       px={5}
+      py={5}
       gap={4}
+      borderBottom="2px solid"
+      borderColor="pigments.secondary"
       onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleCreateThread(e)}
     >
       <Box minW="3rem">
@@ -127,6 +130,7 @@ export default function PostThreadForm(props: PostThreadFormProps) {
             onChange={onChangeImage}
           />
           <Button
+            isLoading={isLoading}
             type="submit"
             w="12rem"
             rounded="18px"

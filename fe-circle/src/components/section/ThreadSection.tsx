@@ -4,22 +4,22 @@ import { ThreadCard } from '../card';
 import { PostThreadForm } from '../form';
 import { MainHeader } from '../layout';
 
-interface ThreadsProps extends HTMLChakraProps<'section'> {}
+interface ThreadSectionProps extends HTMLChakraProps<'section'> {}
 
-export default function Threads(props: ThreadsProps) {
+export default function ThreadSection(props: ThreadSectionProps) {
   return (
     <Box
       {...props}
       as="section"
       position="relative"
       w="100%"
-      py="1rem"
+      py="3.5rem"
       borderX="1px solid"
       borderColor="pigments.secondary"
     >
       <MainHeader headertext="home" />
-      <Box mt="5rem">
-        <PostThreadForm mb="2rem" />
+      <Box>
+        <PostThreadForm />
         <ThreadCard />
       </Box>
     </Box>

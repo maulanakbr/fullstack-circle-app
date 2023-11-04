@@ -84,6 +84,7 @@ export default function ThreadCard(props: ThreadCardProps) {
             borderColor="pigments.secondary"
             rounded="none"
             _hover={{ bg: 'pigments.secondary' }}
+            key={thread.id}
           >
             <CardBody>
               <Flex

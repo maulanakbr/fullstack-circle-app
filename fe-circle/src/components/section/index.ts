@@ -1,2 +1,3 @@
 export { default as ThreadDetails } from './ThreadDetails';
-export { default as Threads } from './Threads';
+export { default as ThreadSection } from './ThreadSection';
+export { default as ProfileSection } from './ProfileSection';
