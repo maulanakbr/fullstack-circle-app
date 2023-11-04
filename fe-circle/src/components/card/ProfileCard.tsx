@@ -26,15 +26,16 @@ export default function ProfileCard(props: ProfileCardProps) {
 
   return (
     <Box
+      {...props}
       bgColor="#313131"
       h={props.passthrough === 'profile' ? '24rem' : '20rem'}
       p={6}
+      mt={20}
       position="relative"
       display="flex"
       flexDirection="column"
       gap={4}
       rounded="15px"
-      {...props}
     >
       <Heading fontSize="md">My Profile</Heading>
       <Box

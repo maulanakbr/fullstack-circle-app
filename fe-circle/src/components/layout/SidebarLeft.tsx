@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   Box,
   Button,
-  Heading,
   ListItem,
   UnorderedList,
   useToast,
@@ -14,6 +13,8 @@ import { useNavigate } from 'react-router-dom';
 import { navMenu } from '@/lib/menu';
 import { useAppDispatch } from '@/app/hook';
 import { signOut } from '@/app/slices/authSlice';
+
+import { MainHeader } from '.';
 
 interface SidebarLeftProps extends HTMLChakraProps<'nav'> {}
 
@@ -37,23 +38,23 @@ export default function SidebarLeft(props: SidebarLeftProps) {
       {...props}
       as="nav"
       position="fixed"
+      h="100%"
       p="1rem"
       display="flex"
       flexDirection="column"
       placeContent="space-between"
-      borderRight="1px solid #3d3d3d"
+      // borderRight="2px solid"
+      borderColor="pigments.secondary"
     >
       <UnorderedList
         margin={0}
         listStyleType="none"
       >
-        <ListItem mb={8}>
-          <Heading
+        <ListItem mb="4.6rem">
+          <MainHeader
+            headertext="circle"
             color="brands.primary"
-            fontSize="3xl"
-          >
-            circle
-          </Heading>
+          />
         </ListItem>
         {navMenu.map((menu, index) => (
           <ListItem

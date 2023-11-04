@@ -3,9 +3,10 @@ import {
   Box,
   Button,
   FormControl,
+  HTMLChakraProps,
   Image,
   Input,
-  Spinner,
+  Stack,
 } from '@chakra-ui/react';
 import { ImagePlus } from 'lucide-react';
 
@@ -13,7 +14,9 @@ import { threadApi } from '@/app/apis/threadApi';
 import { useAppSelector } from '@/app/hook';
 import { selectAuth } from '@/app/slices/authSlice';
 
-export default function PostThreadForm() {
+interface PostThreadFormProps extends HTMLChakraProps<'form'> {}
+
+export default function PostThreadForm(props: PostThreadFormProps) {
   const authSelector = useAppSelector(selectAuth);
   const auth = authSelector && authSelector.user;
   const [form, setForm] = React.useState<{
@@ -26,7 +29,7 @@ export default function PostThreadForm() {
 
   const inputFile = React.useRef<HTMLInputElement>(null);
 
-  const [createThread, { isLoading }] = threadApi.useCreateThreadMutation();
+  const [createThread] = threadApi.useCreateThreadMutation();
 
   const onChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm(prevState => ({
@@ -66,18 +69,21 @@ export default function PostThreadForm() {
 
   return (
     <Box
+      {...props}
       as="form"
       encType="multipart/form-data"
+      maxW="100%"
       display="flex"
       alignItems="center"
+      px={5}
       gap={4}
       onSubmit={(e: React.FormEvent<HTMLFormElement>) => handleCreateThread(e)}
     >
-      <Box>
+      <Box minW="3rem">
         <Image
           src={auth?.data && (auth.data.user_image as string)}
           alt="profile-pic"
-          w="3.4rem"
+          w="2.5rem"
           h="2.5rem"
           rounded="100%"
           objectFit="cover"
@@ -88,7 +94,6 @@ export default function PostThreadForm() {
           type="text"
           name="content"
           placeholder="What's happening?"
-          maxW="100%"
           outline="none"
           ring="none"
           border="none"
@@ -97,31 +102,41 @@ export default function PostThreadForm() {
         />
       </FormControl>
       <FormControl maxW="10.5rem">
-        <Button
-          mr="1rem"
-          onClick={() => {
-            inputFile.current?.click();
-          }}
+        <Stack
+          direction="row"
+          spacing={6}
         >
-          <ImagePlus />
-        </Button>
-        <Input
-          type="file"
-          name="image"
-          display="none"
-          ref={inputFile}
-          onChange={onChangeImage}
-        />
-        {isLoading ? (
-          <Spinner />
-        ) : (
           <Button
-            bg="brand.700"
+            w="7rem"
+            rounded="18px"
+            bg="brands.secondary"
+            _hover={{ bg: 'brands.primary' }}
+            onClick={() => {
+              inputFile.current?.click();
+            }}
+          >
+            <Box color="suits.primary">
+              <ImagePlus />
+            </Box>
+          </Button>
+          <Input
+            type="file"
+            name="image"
+            display="none"
+            ref={inputFile}
+            onChange={onChangeImage}
+          />
+          <Button
             type="submit"
+            w="12rem"
+            rounded="18px"
+            bg="brands.secondary"
+            color="suits.primary"
+            _hover={{ bg: 'brands.primary' }}
           >
             Post
           </Button>
-        )}
+        </Stack>
       </FormControl>
     </Box>
   );

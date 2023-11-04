@@ -2,11 +2,11 @@ import { Box } from '@chakra-ui/react';
 
 import { ProfileCard, ThreadCard } from '@/components/card';
 import { PostThreadForm } from '@/components/form';
-import { MainContainer } from '@/components/layout';
+import { GridContainer } from '@/components/layout';
 
 export default function Profile() {
   return (
-    <MainContainer include="profile">
+    <GridContainer include="profile">
       <ProfileCard
         w="100%"
         passthrough="profile"
@@ -23,6 +23,6 @@ export default function Profile() {
         <PostThreadForm />
         <ThreadCard />
       </Box>
-    </MainContainer>
+    </GridContainer>
   );
 }
