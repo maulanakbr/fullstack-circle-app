@@ -1,14 +1,15 @@
-import * as React from 'react';
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, Heading, type HTMLChakraProps } from '@chakra-ui/react';
 
-import { PostThreadForm, ThreadCard } from './ui';
+import { ThreadCard } from '../card';
+import { PostThreadForm } from '../form';
 
-interface ThreadsProps extends React.ComponentProps<'div'> {}
+interface ThreadsProps extends HTMLChakraProps<'section'> {}
 
 export default function Threads(props: ThreadsProps) {
   return (
     <Box
       {...props}
+      as="section"
       p="1rem"
       borderRight="1px solid #3d3d3d"
     >

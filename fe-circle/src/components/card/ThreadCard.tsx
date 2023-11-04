@@ -1,5 +1,4 @@
 import * as React from 'react';
-import type { SignInResponse } from '@/types';
 import { Box, Button, Heading, Image, Spinner, Text } from '@chakra-ui/react';
 import { Heart, MenuSquare } from 'lucide-react';
 
@@ -9,7 +8,7 @@ import { threadApi } from '@/app/apis/threadApi';
 import { useAppSelector } from '@/app/hook';
 import { selectAuth } from '@/app/slices/authSlice';
 
-import PostReplyForm from './PostReplyForm';
+import PostReplyForm from '../form/PostReplyForm';
 
 interface ThreadCardProps extends React.ComponentProps<'div'> {}
 
@@ -25,11 +24,11 @@ export default function ThreadCard(props: ThreadCardProps) {
     thread: '',
   });
 
-  const authSelector = useAppSelector(selectAuth) as SignInResponse | null;
+  const authSelector = useAppSelector(selectAuth);
   const auth = authSelector && authSelector.user;
 
   const [createLike] = threadApi.useCreateLikeMutation();
-  const [createReply, { status }] = threadApi.useCreateReplyMutation();
+  const [createReply] = threadApi.useCreateReplyMutation();
 
   const handleShowReplyForm = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -65,7 +64,6 @@ export default function ThreadCard(props: ThreadCardProps) {
       token: auth?.token as string,
       body: { content: postReply.content, image: postReply.image, thread },
     });
-    console.log(status);
   };
 
   return (

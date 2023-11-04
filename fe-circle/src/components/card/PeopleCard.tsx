@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { SignInResponse } from '@/types';
 import { Box, Button, Heading, Image, Text } from '@chakra-ui/react';
 import { Image as ImageIcon } from 'lucide-react';
 
@@ -10,7 +9,7 @@ import { selectAuth } from '@/app/slices/authSlice';
 interface PeopleCardProps extends React.ComponentProps<'div'> {}
 
 export default function PeopleCard(props: PeopleCardProps) {
-  const authSelector = useAppSelector(selectAuth) as SignInResponse | null;
+  const authSelector = useAppSelector(selectAuth);
   const auth = authSelector && authSelector.user;
 
   const { data: users } = threadApi.useFetchAllUsersQuery(null);

@@ -1,4 +1,4 @@
-import { Dashboard, Home, Profile } from '@/pages';
+import { Home, Profile, Timeline } from '@/pages';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
@@ -12,8 +12,8 @@ function App() {
       element: <Home auth="signup" />,
     },
     {
-      path: '/dashboard',
-      element: <Dashboard />,
+      path: '/timeline',
+      element: <Timeline />,
     },
     {
       path: '/profile/:id',

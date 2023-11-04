@@ -5,21 +5,31 @@ import {
   Heading,
   ListItem,
   UnorderedList,
+  useToast,
+  type HTMLChakraProps,
 } from '@chakra-ui/react';
 import { Heart, Home, LogOut, Search, User2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 import { navMenu } from '@/lib/menu';
 import { useAppDispatch } from '@/app/hook';
 import { signOut } from '@/app/slices/authSlice';
 
-interface SidebarLeftProps extends React.ComponentProps<'nav'> {}
+interface SidebarLeftProps extends HTMLChakraProps<'nav'> {}
 
 export default function SidebarLeft(props: SidebarLeftProps) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const toast = useToast();
 
   const handleSignout = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(signOut());
+    navigate('/');
+    toast({
+      title: 'You have successfully signed out',
+      position: 'bottom-right',
+    });
   };
 
   return (
@@ -68,7 +78,6 @@ export default function SidebarLeft(props: SidebarLeftProps) {
           </ListItem>
         ))}
         <ListItem>
-          {/* <Button color="inherit">Create Account</Button> */}
           <Button
             leftIcon={<LogOut width="100%" />}
             color="inherit"

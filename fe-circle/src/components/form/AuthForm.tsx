@@ -11,15 +11,20 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
 
+// import { useNavigate } from 'react-router-dom';
+
+import useAuth from '@/hooks/useAuth';
 import { authApi } from '@/app/apis';
-import { useAppSelector } from '@/app/hook';
-import { selectAuth } from '@/app/slices/authSlice';
 
-import { FormInput, NavLink } from './ui';
+// import { useAppSelector } from '@/app/hook';
+// import { selectAuth } from '@/app/slices/authSlice';
+
+import { InputForm } from '.';
+import { NavLink } from '../ui';
 
 export default function AuthForm(props: HomeProps) {
+  const { auth, navigate } = useAuth({ behave: 'signin' });
   const [authForm, setAuthForm] = React.useState({
     email: '',
     password: '',
@@ -32,8 +37,8 @@ export default function AuthForm(props: HomeProps) {
   const [signUp] = authApi.useSignUpMutation();
   const [signIn, { error }] = authApi.useSignInMutation();
 
-  const user = useAppSelector(selectAuth);
-  const navigate = useNavigate();
+  // const user = useAppSelector(selectAuth);
+  // const navigate = useNavigate();
 
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -50,7 +55,7 @@ export default function AuthForm(props: HomeProps) {
 
     const { email, password, username, fullname } = authForm;
 
-    if (props.auth === 'signup') {
+    if (props.auth === 'signup' && !auth) {
       signUp({ body: { email, password, username, fullname } });
       navigate('/');
     } else {
@@ -66,12 +71,12 @@ export default function AuthForm(props: HomeProps) {
     });
   }
 
-  React.useEffect(() => {
-    if (user) {
-      navigate('/dashboard');
-      toast({ title: 'Success sign in!', position: 'bottom-right' });
-    }
-  }, [user, navigate, toast]);
+  // React.useEffect(() => {
+  //   if (user) {
+  //     navigate('/dashboard');
+  //     toast({ title: 'Success sign in!', position: 'bottom-right' });
+  //   }
+  // }, [user, navigate, toast]);
 
   return (
     <Card
@@ -98,7 +103,7 @@ export default function AuthForm(props: HomeProps) {
           gap={6}
           onSubmit={(e: React.FormEvent<HTMLDivElement>) => handleAuth(e)}
         >
-          <FormInput
+          <InputForm
             label="Email address"
             type="email"
             name="email"
@@ -107,7 +112,7 @@ export default function AuthForm(props: HomeProps) {
               handleFormChange(e, 'email')
             }
           />
-          <FormInput
+          <InputForm
             label="Password"
             type="password"
             name="password"
@@ -118,7 +123,7 @@ export default function AuthForm(props: HomeProps) {
           />
           {props.auth === 'signup' && (
             <>
-              <FormInput
+              <InputForm
                 label="Username"
                 type="text"
                 name="username"
@@ -127,7 +132,7 @@ export default function AuthForm(props: HomeProps) {
                   handleFormChange(e, 'username')
                 }
               />
-              <FormInput
+              <InputForm
                 label="Fullname"
                 type="text"
                 name="fullname"

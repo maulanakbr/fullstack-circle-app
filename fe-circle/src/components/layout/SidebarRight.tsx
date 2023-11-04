@@ -1,9 +1,8 @@
-import * as React from 'react';
-import { Box } from '@chakra-ui/react';
+import { Box, type HTMLChakraProps } from '@chakra-ui/react';
 
-import { ProfileCard, SuggestionCard } from '.';
+import { ProfileCard, SuggestionCard } from '../card';
 
-interface SidebarRightProps extends React.ComponentProps<'div'> {}
+interface SidebarRightProps extends HTMLChakraProps<'div'> {}
 
 export default function SidebarRight(props: SidebarRightProps) {
   return (
@@ -16,7 +15,7 @@ export default function SidebarRight(props: SidebarRightProps) {
       flexDir="column"
       gap={4}
     >
-      <ProfileCard />
+      <ProfileCard passthrough="sidebarright" />
       <SuggestionCard />
     </Box>
   );

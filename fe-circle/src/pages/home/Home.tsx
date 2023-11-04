@@ -1,5 +1,6 @@
-import { AuthForm } from '@/components';
 import { Box, Grid, Image } from '@chakra-ui/react';
+
+import { AuthForm } from '@/components/form';
 
 export interface HomeProps {
   auth: 'signin' | 'signup';

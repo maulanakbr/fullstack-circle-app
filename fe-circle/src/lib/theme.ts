@@ -1,7 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
 
-import Button from '@/styles/button';
-
 const theme = extendTheme({
   styles: {
     global: {
@@ -34,9 +32,6 @@ const theme = extendTheme({
   fonts: {
     heading: `'Oxygen', sans-serif`,
     body: `'Chivo', sans-serif`,
-  },
-  components: {
-    Button,
   },
 });
 

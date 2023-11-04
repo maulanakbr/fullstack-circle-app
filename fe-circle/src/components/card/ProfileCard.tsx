@@ -1,52 +1,59 @@
-import * as React from 'react';
 import {
   Box,
   Button,
   Heading,
   Image,
   Text,
-  type BoxProps,
+  useDisclosure,
+  type HTMLChakraProps,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 import { useAppSelector } from '@/app/hook';
 import { selectAuth } from '@/app/slices/authSlice';
 
-interface ProfileCardProps extends React.ComponentProps<'div'> {}
+import ProfileEditor from '../modal/ProfileEditorModal';
+
+interface ProfileCardProps extends HTMLChakraProps<'div'> {
+  passthrough: string;
+}
 
 export default function ProfileCard(props: ProfileCardProps) {
   const authSelector = useAppSelector(selectAuth);
   const auth = authSelector?.user;
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Box
-      {...(props as BoxProps)}
       bgColor="#313131"
-      h="20rem"
+      h={props.passthrough === 'profile' ? '24rem' : '20rem'}
       p={6}
       position="relative"
       display="flex"
       flexDirection="column"
       gap={4}
       rounded="15px"
+      {...props}
     >
       <Heading fontSize="md">My Profile</Heading>
       <Box
         w="100%"
-        minH="5rem"
+        minH={props.passthrough === 'profile' ? '9rem' : '5rem'}
         bgGradient="radial(gray.300, yellow.400, pink.200)"
         rounded="25px"
         mb={14}
       />
       <Box
         position="absolute"
-        top="7.5rem"
+        top={props.passthrough === 'profile' ? '11rem' : '7.5rem'}
       >
         <Box
           display="flex"
+          w="100%"
           alignItems="end"
           justifyContent="space-between"
-          gap="12.2rem"
+          gap={props.passthrough === 'profile' ? '65.6vw' : '12rem'}
         >
           <Image
             src={auth?.data && (auth.data?.user_image as string)}
@@ -62,13 +69,18 @@ export default function ProfileCard(props: ProfileCardProps) {
             bgColor="#3d3d3d"
             color="inherit"
             rounded="20px"
-            right="3.5rem"
-            minW="6.5rem"
+            right={props.passthrough === 'profile' ? '13rem' : '3.5rem'}
+            minW="6.8rem"
             p="0.5rem"
             border="1px solid "
+            onClick={onOpen}
           >
             Edit Profile
           </Button>
+          <ProfileEditor
+            isOpen={isOpen}
+            onClose={onClose}
+          />
         </Box>
       </Box>
       <Box>

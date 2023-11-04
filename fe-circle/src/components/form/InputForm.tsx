@@ -1,19 +1,16 @@
 import * as React from 'react';
 import {
-  // chakra,
   FormControl,
   FormLabel,
-  // HTMLChakraProps,
   Input,
   type InputProps,
-  // type ThemingProps,
 } from '@chakra-ui/react';
 
-interface FormInputProps extends React.ComponentProps<'input'> {
+interface InputFormProps extends React.ComponentProps<'input'> {
   label: string;
 }
 
-const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
+const InputForm = React.forwardRef<HTMLInputElement, InputFormProps>(
   (props, ref) => {
     return (
       <FormControl color="suits.primary">
@@ -41,6 +38,6 @@ const FormInput = React.forwardRef<HTMLInputElement, FormInputProps>(
   }
 );
 
-FormInput.displayName = 'FormInput';
+InputForm.displayName = 'FormInput';
 
-export default FormInput;
+export default InputForm;

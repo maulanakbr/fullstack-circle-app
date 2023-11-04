@@ -1,5 +1,4 @@
 import * as React from 'react';
-import type { SignInResponse } from '@/types';
 import {
   Box,
   Button,
@@ -14,8 +13,8 @@ import { threadApi } from '@/app/apis/threadApi';
 import { useAppSelector } from '@/app/hook';
 import { selectAuth } from '@/app/slices/authSlice';
 
-export default function PostThread() {
-  const authSelector = useAppSelector(selectAuth) as SignInResponse | null;
+export default function PostThreadForm() {
+  const authSelector = useAppSelector(selectAuth);
   const auth = authSelector && authSelector.user;
   const [form, setForm] = React.useState<{
     content: string;
