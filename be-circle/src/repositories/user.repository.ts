@@ -19,9 +19,15 @@ export default class UserRepository extends Repository<UserEntity> {
         description: true,
         followings: {
           id: true,
+          fullname: true,
+          username: true,
+          user_image: true,
         },
         followers: {
           id: true,
+          fullname: true,
+          username: true,
+          user_image: true,
         },
       },
       relations: {

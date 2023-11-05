@@ -1,4 +1,4 @@
-import { Home, Profile, Timeline } from '@/pages';
+import { Home, Profile, Thread, Timeline } from '@/pages';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
@@ -18,6 +18,10 @@ function App() {
     {
       path: '/profile/:id',
       element: <Profile />,
+    },
+    {
+      path: 'thread/current/:id',
+      element: <Thread />,
     },
   ]);
 

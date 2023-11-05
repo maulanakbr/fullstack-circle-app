@@ -58,9 +58,16 @@ export const threadApi = createApi({
       }),
       invalidatesTags: ['Users'],
     }),
-    fetchThreads: build.query<ThreadResponse, null>({
+    fetchThreads: build.query<ThreadResponse[], null>({
       query: () => ({
         url: '/threads',
+        method: 'GET',
+      }),
+      providesTags: ['Threads'],
+    }),
+    fetchThreadId: build.query<ThreadResponse, null>({
+      query: () => ({
+        url: 'threads/current',
         method: 'GET',
       }),
       providesTags: ['Threads'],

@@ -69,4 +69,22 @@ export class ThreadController {
       next(error);
     }
   };
+
+  public findCurrentThread = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const threadData: Thread = req.body;
+      const currentThread = await this.thread.findCurrentThread(threadData.id);
+
+      res.status(201).json({
+        data: currentThread,
+        message: 'Found a thread',
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }

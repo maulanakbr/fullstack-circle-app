@@ -14,11 +14,17 @@ export const UserResponse = z.object({
   followings: z
     .object({
       id: z.string(),
+      fullname: z.string(),
+      username: z.string(),
+      user_image: z.string(),
     })
     .array(),
   followers: z
     .object({
       id: z.string(),
+      fullname: z.string(),
+      username: z.string(),
+      user_image: z.string(),
     })
     .array(),
 });

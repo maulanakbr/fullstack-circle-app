@@ -9,9 +9,45 @@ export default class ThreadRepository extends Repository<ThreadEntity> {
 
   protected async findThreadId(id: string): Promise<Thread> {
     const result: Thread = await this.threadRepo.findOne({
+      select: {
+        id: true,
+        content: true,
+        image: true,
+        posted_at: true,
+        user: {
+          id: true,
+          username: true,
+          fullname: true,
+          user_image: true,
+        },
+        likes: {
+          id: true,
+          user: {
+            id: true,
+            username: true,
+            fullname: true,
+          },
+        },
+        replies: {
+          id: true,
+          content: true,
+          image: true,
+          user: {
+            id: true,
+            username: true,
+            fullname: true,
+          },
+        },
+      },
       where: { id },
       relations: {
-        likes: true,
+        user: true,
+        likes: {
+          user: true,
+        },
+        replies: {
+          user: true,
+        },
       },
     });
 

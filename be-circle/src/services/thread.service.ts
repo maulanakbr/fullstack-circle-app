@@ -26,6 +26,13 @@ export class ThreadService extends ThreadRepository {
     return allThreads;
   }
 
+  public async findCurrentThread(threadId: string): Promise<Thread> {
+    const currentThread: Thread = await this.findThreadId(threadId);
+    if (!currentThread) throw new HttpException(404, 'Thread cannot be found');
+
+    return currentThread;
+  }
+
   public async findThreadsBelongToUser(userId: string): Promise<Thread[]> {
     const threadsBelongToUser: Thread[] =
       await this.findThreadsByUserId(userId);

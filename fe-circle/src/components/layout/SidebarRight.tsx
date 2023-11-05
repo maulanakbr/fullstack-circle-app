@@ -7,20 +7,21 @@ interface SidebarRightProps extends HTMLChakraProps<'div'> {}
 
 export default function SidebarRight(props: SidebarRightProps) {
   const { pathname } = useLocation();
-  const isProfile = pathname.includes('profile');
+  const isProfilePage = pathname.includes('profile');
+  const isCurrentThreadPage = pathname.includes('thread');
 
   return (
     <Box
       {...props}
       position="fixed"
-      top={isProfile ? '4rem' : undefined}
+      top={isProfilePage || isCurrentThreadPage ? '4rem' : undefined}
       right="0"
       p="1rem"
       display="flex"
       flexDir="column"
-      gap={isProfile ? 4 : undefined}
+      gap={isProfilePage || isCurrentThreadPage ? undefined : 4}
     >
-      {!isProfile ? (
+      {!isProfilePage && !isCurrentThreadPage ? (
         <ProfileCard
           passthrough="sidebarright"
           mt="4rem"

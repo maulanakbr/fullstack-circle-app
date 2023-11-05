@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Card,
   Heading,
   Image,
   Text,
@@ -9,8 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
-import { useAppSelector } from '@/app/hook';
-import { selectAuth } from '@/app/slices/authSlice';
+import useAuth from '@/hooks/useAuth';
 
 import ProfileEditor from '../modal/ProfileEditorModal';
 
@@ -19,41 +19,40 @@ interface ProfileCardProps extends HTMLChakraProps<'div'> {
 }
 
 export default function ProfileCard(props: ProfileCardProps) {
-  const authSelector = useAppSelector(selectAuth);
-  const auth = authSelector?.user;
+  const { auth } = useAuth({});
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box
+    <Card
       {...props}
       position="relative"
       w={props.passthrough === 'profile' ? '100%' : undefined}
-      h="20rem"
+      h={props.passthrough === 'profile' ? '20rem' : '20rem'}
       bgColor="pigments.secondary"
+      color="suits.primary"
       display="flex"
       flexDirection="column"
       gap={4}
-      rounded="15px"
       overflow="hidden"
     >
       <Box
         w="100%"
-        minH="10rem"
+        minH="10.5rem"
         bgGradient="radial(gray.300, yellow.400, pink.200)"
         mb={14}
       />
       <Box
         position="absolute"
-        top={props.passthrough === 'profile' ? '5.8rem' : '6rem'}
-        left="1.7rem"
+        top={props.passthrough === 'profile' ? '6rem' : '6rem'}
+        left="1.2rem"
       >
         <Box
           display="flex"
           w="100%"
           alignItems="end"
           justifyContent="space-between"
-          gap={props.passthrough === 'profile' ? '30vw' : '8rem'}
+          gap={props.passthrough === 'profile' ? '32vw' : '10rem'}
         >
           <Image
             src={auth?.data && (auth.data?.user_image as string)}
@@ -65,17 +64,17 @@ export default function ProfileCard(props: ProfileCardProps) {
             objectFit="cover"
           />
           <Button
-            w="3rem"
-            h="2.7rem"
-            rounded="18px"
-            bg="brands.secondary"
-            color="suits.primary"
-            _hover={{ bg: 'brands.primary' }}
-            minW="6.8rem"
+            variant="outline"
+            w="5rem"
+            rounded="20px"
+            bg="pigments.primary"
+            color="inherit"
             p="0.5rem"
+            borderColor="suits.secondary"
+            _hover={{ bg: 'pigments.secondary' }}
             onClick={onOpen}
           >
-            Edit Profile
+            Edit
           </Button>
           <ProfileEditor
             isOpen={isOpen}
@@ -85,8 +84,8 @@ export default function ProfileCard(props: ProfileCardProps) {
       </Box>
       <Box
         position="absolute"
-        top="13rem"
-        left="1rem"
+        top={props.passthrough === 'profile' ? '13.5rem' : '13rem'}
+        left="1.5rem"
       >
         <Link to={`/profile/${auth?.data && auth.data.username}`}>
           <Heading
@@ -137,6 +136,6 @@ export default function ProfileCard(props: ProfileCardProps) {
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Card>
   );
 }

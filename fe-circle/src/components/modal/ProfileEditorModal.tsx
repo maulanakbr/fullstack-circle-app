@@ -10,8 +10,6 @@ import {
 
 import { ProfileEditorForm } from '../form';
 
-ProfileEditorForm;
-
 interface ProfileEditorProps extends Omit<ModalProps, 'children'> {}
 
 export default function ProfileEditor(props: ProfileEditorProps) {

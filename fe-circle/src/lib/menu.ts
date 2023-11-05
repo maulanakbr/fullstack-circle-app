@@ -8,8 +8,8 @@ export const navMenu = [
     path: '/search',
   },
   {
-    label: 'Follows',
-    path: '-',
+    label: 'Follow',
+    path: '/timeline',
   },
   {
     label: 'Profile',

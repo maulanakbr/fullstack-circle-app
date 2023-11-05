@@ -10,15 +10,13 @@ import {
 } from '@chakra-ui/react';
 import { Image as ImageIcon } from 'lucide-react';
 
+import useAuth from '@/hooks/useAuth';
 import { threadApi } from '@/app/apis/threadApi';
-import { useAppSelector } from '@/app/hook';
-import { selectAuth } from '@/app/slices/authSlice';
 
 interface PeopleCardProps extends React.ComponentProps<'div'> {}
 
 export default function PeopleCard(props: PeopleCardProps) {
-  const authSelector = useAppSelector(selectAuth);
-  const auth = authSelector && authSelector.user;
+  const { auth } = useAuth({});
 
   const { data: users } = threadApi.useFetchAllUsersQuery(null);
 
@@ -44,7 +42,11 @@ export default function PeopleCard(props: PeopleCardProps) {
   return (
     <>
       {users?.data.map(user => (
-        <Card key={user.id}>
+        <Card
+          key={user.id}
+          bg="pigments.primary"
+          color="suits.primary"
+        >
           <CardBody>
             <Box
               {...props}
@@ -89,12 +91,12 @@ export default function PeopleCard(props: PeopleCardProps) {
               </Box>
               <Box>
                 <Button
+                  variant="outline"
                   w="5rem"
-                  bgColor="#3d3d3d"
                   color="inherit"
                   rounded="20px"
                   p="0.5rem"
-                  border="1px solid "
+                  _hover={{ bg: 'pigments.secondary' }}
                   onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
                     handleFollow(e, user.id)
                   }

@@ -6,6 +6,7 @@ import {
   Stack,
   Text,
   UnorderedList,
+  useDisclosure,
   useToast,
   type HTMLChakraProps,
 } from '@chakra-ui/react';
@@ -18,16 +19,17 @@ import { useAppDispatch } from '@/app/hook';
 import { signOut } from '@/app/slices/authSlice';
 
 import { MainHeader } from '.';
+import FollowModal from '../modal/FollowModal';
 
 interface SidebarLeftProps extends HTMLChakraProps<'nav'> {}
 
 export default function SidebarLeft(props: SidebarLeftProps) {
   const { auth } = useAuth({});
-
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSignout = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -71,6 +73,7 @@ export default function SidebarLeft(props: SidebarLeftProps) {
               to={
                 path === '/profile' ? `/profile/${auth?.data.username}` : path
               }
+              onClick={label === 'Follow' ? onOpen : undefined}
             >
               <Stack
                 direction="row"
@@ -114,6 +117,10 @@ export default function SidebarLeft(props: SidebarLeftProps) {
           </Button>
         </ListItem>
       </UnorderedList>
+      <FollowModal
+        isOpen={isOpen}
+        onClose={onClose}
+      />
     </Box>
   );
 }
