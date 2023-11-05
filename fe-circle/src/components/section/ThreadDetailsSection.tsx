@@ -1,7 +1,7 @@
 import { Box, type HTMLChakraProps } from '@chakra-ui/react';
 
 import { ThreadDetailsCard } from '../card';
-import { PostThreadForm } from '../form';
+import { PostReplyForm } from '../form';
 import { MainHeader } from '../layout';
 
 interface ThreadDetailsSection extends HTMLChakraProps<'section'> {}
@@ -20,7 +20,7 @@ export default function ThreadSection(props: ThreadDetailsSection) {
       <MainHeader headertext="thread" />
       <Box>
         <ThreadDetailsCard />
-        <PostThreadForm />
+        <PostReplyForm />
       </Box>
     </Box>
   );

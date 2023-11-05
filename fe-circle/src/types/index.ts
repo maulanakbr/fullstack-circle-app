@@ -10,7 +10,12 @@ import type {
 import type { FollowPayload, FollowResponse } from './follow';
 import type { LikePayload } from './like';
 import type { ReplyPayload, ReplyRequest, ReplyResponse } from './reply';
-import type { ThreadPayload, ThreadResponse, ThreadState } from './thread';
+import type {
+  ThreadArrayResponse,
+  ThreadPayload,
+  ThreadResponse,
+  ThreadState,
+} from './thread';
 import type { FetchUserResponse } from './user';
 
 type ErrorValue = {
@@ -36,4 +41,5 @@ export type {
   ThreadState,
   ThreadPayload,
   ThreadResponse,
+  ThreadArrayResponse,
 };

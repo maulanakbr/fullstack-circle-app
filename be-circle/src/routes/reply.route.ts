@@ -1,10 +1,9 @@
 import { Router } from 'express';
 
 import { Route } from '@/interfaces/router.interface';
-import { ReplyDto } from '@/dtos/reply.dto';
 import { ReplyController } from '@/controllers/reply.controller';
 import { AuthMiddleware } from '@/middlewares/auth.middleware';
-import { ValidationMiddleware } from '@/middlewares/validation.middleware';
+import { Upload } from '@/middlewares/upload.middleware';
 
 export default class ReplyRoute implements Route {
   public path = '/replies';
@@ -16,10 +15,11 @@ export default class ReplyRoute implements Route {
   }
 
   private executeRoutes() {
-    this.router.post(`${this.path}`, [
-      ValidationMiddleware(ReplyDto, true),
-      AuthMiddleware,
+    this.router.post(
+      `${this.path}`,
+      [AuthMiddleware, Upload.single('image')],
       this.replies.createReply,
-    ]);
+    );
+    this.router.get(`${this.path}/:id`, this.replies.findAllRepliesByThreadId);
   }
 }

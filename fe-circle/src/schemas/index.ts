@@ -4,13 +4,13 @@ import {
   AuthSignInResponse,
   AuthSignUpPayload,
   AuthSignUpResponse,
-  SignInPayload,
-  SignInResponse,
-  SignUpPayload,
-  SignUpResponse,
 } from './authSchema';
 import { ReplyPayload } from './replySchema';
-import { ThreadPayload, ThreadResponse } from './threadSchema';
+import {
+  ThreadArrayResponse,
+  ThreadPayload,
+  ThreadResponse,
+} from './threadSchema';
 
 export {
   AuthError,
@@ -19,10 +19,7 @@ export {
   AuthSignInPayload,
   AuthSignInResponse,
   ReplyPayload,
-  SignInPayload,
-  SignInResponse,
-  SignUpPayload,
-  SignUpResponse,
   ThreadPayload,
   ThreadResponse,
+  ThreadArrayResponse,
 };

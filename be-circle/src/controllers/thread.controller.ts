@@ -76,8 +76,8 @@ export class ThreadController {
     next: NextFunction,
   ) => {
     try {
-      const threadData: Thread = req.body;
-      const currentThread = await this.thread.findCurrentThread(threadData.id);
+      const threadData = req.params.id;
+      const currentThread = await this.thread.findCurrentThread(threadData);
 
       res.status(201).json({
         data: currentThread,

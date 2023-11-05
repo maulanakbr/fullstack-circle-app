@@ -1,7 +1,12 @@
 import { ReplyPayload } from '@/schemas';
 import * as z from 'zod';
 
-export type ReplyRequest = z.infer<typeof ReplyPayload>;
+export type ReplyPayload = z.infer<typeof ReplyPayload>;
+
+export type ReplyRequest = {
+  body: ReplyPayload | FormData;
+  token: string;
+};
 
 export type ReplyResponse = {
   id: string;
@@ -11,9 +16,4 @@ export type ReplyResponse = {
   updated_at: Date;
   thread: string;
   user: string;
-};
-
-export type ReplyPayload = {
-  body: ReplyRequest;
-  token: string;
 };

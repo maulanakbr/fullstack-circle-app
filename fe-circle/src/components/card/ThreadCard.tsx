@@ -14,12 +14,9 @@ import {
 import { Heart, MenuSquare } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import { ReplyRequest } from '@/types/reply';
 import timeSince from '@/lib/timeSince';
 import useAuth from '@/hooks/useAuth';
 import { threadApi } from '@/app/apis/threadApi';
-
-import PostReplyForm from '../form/PostReplyForm';
 
 interface ThreadCardProps extends HTMLChakraProps<'div'> {}
 
@@ -28,20 +25,8 @@ export default function ThreadCard(props: ThreadCardProps) {
   const { data: threads } = threadApi.useFetchThreadsQuery(null);
 
   const [isLike, setIsLike] = React.useState<boolean>(false);
-  const [showReplyForm, setShowReplyForm] = React.useState<boolean>(false);
-  const [postReply, setPostReply] = React.useState<ReplyRequest>({
-    content: '',
-    image: '',
-    thread: '',
-  });
 
   const [createLike] = threadApi.useCreateLikeMutation();
-  const [createReply] = threadApi.useCreateReplyMutation();
-
-  const handleShowReplyForm = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setShowReplyForm(prevState => !prevState);
-  };
 
   const handleLike = (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -53,31 +38,10 @@ export default function ThreadCard(props: ThreadCardProps) {
     setIsLike(prevState => !prevState);
   };
 
-  const handleReplyChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    key: keyof ReplyRequest
-  ) => {
-    setPostReply(prevState => ({
-      ...prevState,
-      [key]: e.target.value,
-    }));
-  };
-
-  const handleReply = (
-    e: React.MouseEvent<HTMLButtonElement>,
-    thread: string
-  ) => {
-    e.preventDefault();
-    createReply({
-      token: auth?.token as string,
-      body: { content: postReply.content, image: postReply.image, thread },
-    });
-  };
-
   return (
     <>
       {threads?.data &&
-        threads.data.map(thread => (
+        threads?.data.map(thread => (
           <Link
             to={`/thread/current/${thread.id}`}
             key={thread.id}
@@ -187,9 +151,6 @@ export default function ThreadCard(props: ThreadCardProps) {
                           <Button
                             bg="none"
                             _hover={{ bg: 'none' }}
-                            onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                              handleShowReplyForm(e)
-                            }
                           >
                             <Stack
                               direction="row"
@@ -204,7 +165,7 @@ export default function ThreadCard(props: ThreadCardProps) {
                               </Text>
                             </Stack>
                           </Button>
-                          {showReplyForm && (
+                          {/* {showReplyForm && (
                             <PostReplyForm
                               changeevent={(
                                 e: React.ChangeEvent<HTMLInputElement>
@@ -213,7 +174,7 @@ export default function ThreadCard(props: ThreadCardProps) {
                                 e: React.MouseEvent<HTMLButtonElement>
                               ) => handleReply(e, thread.id)}
                             />
-                          )}
+                          )} */}
                         </Box>
                       </Box>
                     </Box>

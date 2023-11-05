@@ -3,8 +3,9 @@ import type {
   FollowPayload,
   FollowResponse,
   LikePayload,
-  ReplyPayload,
+  ReplyRequest,
   ReplyResponse,
+  ThreadArrayResponse,
   ThreadPayload,
   ThreadResponse,
 } from '@/types';
@@ -40,7 +41,7 @@ export const threadApi = createApi({
       }),
       invalidatesTags: ['Threads'],
     }),
-    createReply: build.mutation<ReplyResponse, ReplyPayload>({
+    createReply: build.mutation<ReplyResponse, ReplyRequest>({
       query: reply => ({
         url: '/replies',
         headers: { authorization: `Bearer ${reply.token}` },
@@ -58,16 +59,16 @@ export const threadApi = createApi({
       }),
       invalidatesTags: ['Users'],
     }),
-    fetchThreads: build.query<ThreadResponse[], null>({
+    fetchThreads: build.query<ThreadArrayResponse, null>({
       query: () => ({
         url: '/threads',
         method: 'GET',
       }),
       providesTags: ['Threads'],
     }),
-    fetchThreadId: build.query<ThreadResponse, null>({
-      query: () => ({
-        url: 'threads/current',
+    fetchThreadId: build.query<ThreadResponse, string>({
+      query: threadId => ({
+        url: `threads/current/${threadId}`,
         method: 'GET',
       }),
       providesTags: ['Threads'],

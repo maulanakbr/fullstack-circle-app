@@ -19,7 +19,7 @@ export default class ThreadRoute implements Route {
 
   private executeRoutes() {
     this.router.get(`${this.path}`, this.threads.findAllThreads);
-    this.router.get(`${this.path}/current`, this.threads.findCurrentThread);
+    this.router.get(`${this.path}/current/:id`, this.threads.findCurrentThread);
     this.router.get(
       `${this.path}/user`,
       AuthMiddleware,
