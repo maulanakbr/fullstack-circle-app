@@ -44,27 +44,6 @@ export default function ThreadDetailsCard(props: ThreadDetailsCardProps) {
     setIsLike(prevState => !prevState);
   };
 
-  // const handleReplyChange = (
-  //   e: React.ChangeEvent<HTMLInputElement>,
-  //   key: keyof ReplyRequest
-  // ) => {
-  //   setPostReply(prevState => ({
-  //     ...prevState,
-  //     [key]: e.target.value,
-  //   }));
-  // };
-
-  // const handleReply = (
-  //   e: React.MouseEvent<HTMLButtonElement>,
-  //   thread: string
-  // ) => {
-  //   e.preventDefault();
-  //   createReply({
-  //     token: auth?.token as string,
-  //     body: { content: postReply.content, image: postReply.image, thread },
-  //   });
-  // };
-
   return (
     <>
       <Card

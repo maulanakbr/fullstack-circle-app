@@ -26,16 +26,19 @@ export default class ThreadRepository extends Repository<ThreadEntity> {
             id: true,
             username: true,
             fullname: true,
+            user_image: true,
           },
         },
         replies: {
           id: true,
           content: true,
           image: true,
+          created_at: true,
           user: {
             id: true,
             username: true,
             fullname: true,
+            user_image: true,
           },
         },
       },
@@ -47,6 +50,11 @@ export default class ThreadRepository extends Repository<ThreadEntity> {
         },
         replies: {
           user: true,
+        },
+      },
+      order: {
+        replies: {
+          created_at: 'DESC',
         },
       },
     });

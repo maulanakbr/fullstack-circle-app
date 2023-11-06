@@ -32,10 +32,12 @@ export const ThreadResponse = z.object({
         id: z.string(),
         content: z.string(),
         image: z.string(),
+        created_at: z.date(),
         user: z.object({
           id: z.string(),
           username: z.string(),
           fullname: z.string(),
+          user_image: z.string(),
         }),
       })
       .array(),
@@ -70,10 +72,12 @@ export const ThreadArrayResponse = z.object({
           id: z.string(),
           content: z.string(),
           image: z.string(),
+          created_at: z.date(),
           user: z.object({
             id: z.string(),
             username: z.string(),
             fullname: z.string(),
+            user_image: z.string(),
           }),
         })
         .array(),
