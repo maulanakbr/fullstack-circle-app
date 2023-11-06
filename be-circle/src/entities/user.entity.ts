@@ -55,16 +55,6 @@ export class UserEntity {
     onDelete: 'CASCADE',
   })
   likes: LikeEntity[];
-
-  // @OneToMany(() => FollowEntity, follow => follow.followers, {
-  //   onDelete: 'CASCADE',
-  // })
-  // followers: FollowEntity[];
-
-  // @OneToMany(() => FollowEntity, follow => follow.following, {
-  //   onDelete: 'CASCADE',
-  // })
-  // following: FollowEntity[];
   @ManyToMany(() => UserEntity, user => user.followings, { cascade: true })
   @JoinTable({
     name: 'followers',

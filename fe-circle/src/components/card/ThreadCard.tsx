@@ -24,6 +24,7 @@ export default function ThreadCard(props: ThreadCardProps) {
   const { auth } = useAuth({});
   const { data: threads } = threadApi.useFetchThreadsQuery(null);
 
+
   const [isLike, setIsLike] = React.useState<boolean>(false);
 
   const [createLike] = threadApi.useCreateLikeMutation();

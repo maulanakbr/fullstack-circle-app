@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 import Container from 'typedi';
 
+import { UpdateUserPayload } from '@/interfaces/user.interface';
 import { UserService } from '@/services/user.services';
 
 export class UserController {
@@ -51,6 +52,29 @@ export class UserController {
 
       res.status(201).json({
         message: 'User removed successfully',
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public updateUser = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const userToUpdate: UpdateUserPayload = req.body;
+      const imgToUpload = req.file;
+      const session = res.locals.session.id;
+
+      userToUpdate.user = session;
+
+      console.log(userToUpdate);
+
+      await this.user.findAndUpdateUser(userToUpdate, imgToUpload);
+      res.status(201).json({
+        message: 'User updated successfully',
       });
     } catch (error) {
       next(error);

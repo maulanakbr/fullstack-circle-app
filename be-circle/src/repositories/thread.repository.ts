@@ -109,6 +109,9 @@ export default class ThreadRepository extends Repository<ThreadEntity> {
       where: {
         user: {
           id: userId,
+          followings: {
+            threads: true,
+          },
         },
       },
     });

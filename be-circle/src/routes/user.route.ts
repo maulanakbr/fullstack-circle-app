@@ -3,6 +3,7 @@ import { Router } from 'express';
 import type { Route } from '@/interfaces/router.interface';
 import { UserController } from '@/controllers/user.controller';
 import { AuthMiddleware } from '@/middlewares/auth.middleware';
+import { Upload } from '@/middlewares/upload.middleware';
 
 export default class UserRoute implements Route {
   public path = '/users';
@@ -24,6 +25,11 @@ export default class UserRoute implements Route {
       `${this.path}/remove`,
       AuthMiddleware,
       this.users.removeUser,
+    );
+    this.router.put(
+      `${this.path}/update`,
+      [Upload.single('user_image'), AuthMiddleware],
+      this.users.updateUser,
     );
   }
 }

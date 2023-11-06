@@ -16,3 +16,8 @@ export interface User {
   followings: User[];
   followers: User[];
 }
+
+export interface UpdateUserPayload
+  extends Pick<User, 'fullname' | 'username' | 'user_image' | 'description'> {
+  user: string;
+}
