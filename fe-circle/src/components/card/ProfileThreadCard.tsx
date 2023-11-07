@@ -18,11 +18,15 @@ import timeSince from '@/lib/timeSince';
 import useAuth from '@/hooks/useAuth';
 import { threadApi } from '@/app/apis/threadApi';
 
-interface ThreadCardProps extends HTMLChakraProps<'div'> {}
+interface ProfileThreadCardProps extends HTMLChakraProps<'div'> {}
 
-export default function ThreadCard(props: ThreadCardProps) {
+export default function ProfileThreadCard(props: ProfileThreadCardProps) {
   const { auth } = useAuth({});
-  const { data: threads } = threadApi.useFetchThreadsQuery(null);
+  const { data: threads } = threadApi.useFetchThreadsBelongToUserQuery({
+    token: auth?.token as string,
+  });
+
+  console.log(threads);
 
   const [isLike, setIsLike] = React.useState<boolean>(false);
 

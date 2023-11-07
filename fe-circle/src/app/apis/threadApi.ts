@@ -74,11 +74,22 @@ export const threadApi = createApi({
       providesTags: ['Threads'],
     }),
     fetchThreadsBelongToUser: build.query<
-      ThreadResponse,
+      ThreadArrayResponse,
       Pick<ThreadRequest, 'token'>
     >({
       query: thread => ({
         url: '/threads/user',
+        headers: { authorization: `Bearer ${thread.token}` },
+        method: 'GET',
+      }),
+      providesTags: ['Threads'],
+    }),
+    fetchThreadsBelongToUserAndFollowings: build.query<
+      ThreadArrayResponse,
+      Pick<ThreadRequest, 'token'>
+    >({
+      query: thread => ({
+        url: '/threads/user/populate',
         headers: { authorization: `Bearer ${thread.token}` },
         method: 'GET',
       }),

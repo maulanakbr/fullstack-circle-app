@@ -1,6 +1,6 @@
 import { Box, HTMLChakraProps } from '@chakra-ui/react';
 
-import { ProfileCard, ThreadCard } from '../card';
+import { ProfileCard, ProfileThreadCard } from '../card';
 import { PostThreadForm } from '../form';
 import { MainHeader } from '../layout';
 
@@ -24,7 +24,8 @@ export default function ProfileSection(props: ProfileSectionProps) {
       >
         <ProfileCard passthrough="profile" />
         <PostThreadForm />
-        <ThreadCard />
+        {/* <ThreadCard /> */}
+        <ProfileThreadCard />
       </Box>
     </Box>
   );

@@ -19,7 +19,7 @@ import { useAppDispatch } from '@/app/hook';
 import { signOut } from '@/app/slices/authSlice';
 
 import { MainHeader } from '.';
-import FollowModal from '../modal/FollowModal';
+import { FollowModal } from '../modal';
 
 interface SidebarLeftProps extends HTMLChakraProps<'nav'> {}
 
@@ -29,7 +29,8 @@ export default function SidebarLeft(props: SidebarLeftProps) {
 
   const navigate = useNavigate();
   const toast = useToast();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { isOpen: openFollow, onOpen, onClose: closeFollow } = useDisclosure();
 
   const handleSignout = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -85,7 +86,7 @@ export default function SidebarLeft(props: SidebarLeftProps) {
                   <Home />
                 ) : label === 'Search' ? (
                   <Search />
-                ) : label === 'Follows' ? (
+                ) : label === 'Follow' ? (
                   <Heart />
                 ) : (
                   <User2 />
@@ -118,8 +119,8 @@ export default function SidebarLeft(props: SidebarLeftProps) {
         </ListItem>
       </UnorderedList>
       <FollowModal
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={openFollow}
+        onClose={closeFollow}
       />
     </Box>
   );
