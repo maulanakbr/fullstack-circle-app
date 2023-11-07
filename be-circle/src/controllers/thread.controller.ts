@@ -70,6 +70,25 @@ export class ThreadController {
     }
   };
 
+  public findThreadsBelongToUserAndFollowings = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    try {
+      const session = res.locals.session;
+      const threadsBelongToUserAndFollowings =
+        await this.thread.findThreadsBelongToUserAndFollowings(session.id);
+
+      res.status(201).json({
+        data: threadsBelongToUserAndFollowings,
+        message: 'Found all threads belong to user and followings',
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public findCurrentThread = async (
     req: Request,
     res: Response,

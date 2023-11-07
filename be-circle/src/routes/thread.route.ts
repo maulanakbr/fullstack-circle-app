@@ -25,6 +25,11 @@ export default class ThreadRoute implements Route {
       AuthMiddleware,
       this.threads.findThreadsBelongToUser,
     );
+    this.router.get(
+      `${this.path}/user/populate`,
+      AuthMiddleware,
+      this.threads.findThreadsBelongToUserAndFollowings,
+    );
     this.router.post(
       `${this.path}`,
       [AuthMiddleware, Upload.single('image')],

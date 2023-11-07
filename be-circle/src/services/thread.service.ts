@@ -42,4 +42,16 @@ export class ThreadService extends ThreadRepository {
 
     return threadsBelongToUser;
   }
+
+  public async findThreadsBelongToUserAndFollowings(
+    userId: string,
+  ): Promise<Thread[]> {
+    const threadsBelongToUserAndFollowings: Thread[] =
+      await this.findThreadsByUserAndFollowingsId(userId);
+
+    if (!threadsBelongToUserAndFollowings)
+      throw new HttpException(404, 'Threads cannot be found');
+
+    return threadsBelongToUserAndFollowings;
+  }
 }
