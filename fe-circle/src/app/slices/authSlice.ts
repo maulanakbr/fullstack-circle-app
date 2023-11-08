@@ -29,7 +29,7 @@ export const authSlice = createSlice({
         state.auth = action.payload;
         state.loading = false;
         state.error = null;
-        state.token = action.payload.data && action.payload.data.user.token!;
+        state.token = action.payload.user && action.payload.user.token!;
       }
     );
   },

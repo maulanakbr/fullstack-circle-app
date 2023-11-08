@@ -7,6 +7,7 @@ export const CREDENTIALS = process.env.CREDENTIALS === 'true';
 export const {
   NODE_ENV,
   PORT,
+  AMQPLIB_PORT,
   DB_USER,
   DB_PASSWORD,
   DB_HOST,

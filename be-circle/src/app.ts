@@ -9,6 +9,7 @@ import morgan from 'morgan';
 import { CREDENTIALS, LOG_FORMAT, NODE_ENV, ORIGIN, PORT } from './config';
 import { dbConnection } from './database';
 import { ErrorMiddleware } from './middlewares/error.middleware';
+// import { amqplibConnection } from './utils/amqp';
 import { logger, stream } from './utils/logger';
 
 export class App {
@@ -36,10 +37,19 @@ export class App {
   public useServer() {
     return this.app;
   }
-
   private async databaseConnection() {
     await dbConnection.initialize();
   }
+
+  // private async amqplibConnection() {
+  //   const amqp = await amqplibConnection();
+
+  //   amqp.channel.consume('POSTTHREAD', data => {
+  //     console.log('Consume POSTTHREAD queue');
+
+  //     amqp.channel.ack(data);
+  //   });
+  // }
 
   private executeMiddlewares() {
     this.app.use(morgan(LOG_FORMAT, { stream }));

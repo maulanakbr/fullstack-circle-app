@@ -1,7 +1,7 @@
 import { Flex, Heading, HTMLChakraProps } from '@chakra-ui/react';
 
 interface MainHeaderProps extends HTMLChakraProps<'header'> {
-  headertext: 'circle' | 'home' | 'profile' | 'thread';
+  headertext: 'circle' | 'home' | 'profile' | 'thread' | 'search';
 }
 
 export default function MainHeader(props: MainHeaderProps) {

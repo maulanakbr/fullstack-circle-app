@@ -10,15 +10,13 @@ import {
 } from '@chakra-ui/react';
 import { ImagePlus } from 'lucide-react';
 
+import useAuth from '@/hooks/useAuth';
 import { threadApi } from '@/app/apis/threadApi';
-import { useAppSelector } from '@/app/hook';
-import { selectAuth } from '@/app/slices/authSlice';
 
 interface PostThreadFormProps extends HTMLChakraProps<'form'> {}
 
 export default function PostThreadForm(props: PostThreadFormProps) {
-  const authSelector = useAppSelector(selectAuth);
-  const auth = authSelector && authSelector.user;
+  const { auth } = useAuth({});
   const [form, setForm] = React.useState<{
     content: string;
     image: File | string;

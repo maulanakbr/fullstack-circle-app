@@ -5,14 +5,11 @@ import {
   Heading,
   Image,
   Text,
-  useDisclosure,
   type HTMLChakraProps,
 } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 
 import useAuth from '@/hooks/useAuth';
-
-import ProfileEditor from '../modal/ProfileEditorModal';
 
 interface ProfileCardProps extends HTMLChakraProps<'div'> {
   passthrough: string;
@@ -20,8 +17,6 @@ interface ProfileCardProps extends HTMLChakraProps<'div'> {
 
 export default function ProfileCard(props: ProfileCardProps) {
   const { auth } = useAuth({});
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Card
@@ -72,14 +67,10 @@ export default function ProfileCard(props: ProfileCardProps) {
             p="0.5rem"
             borderColor="suits.secondary"
             _hover={{ bg: 'pigments.secondary' }}
-            onClick={onOpen}
+            // onClick={onOpen}
           >
             Edit
           </Button>
-          <ProfileEditor
-            isOpen={isOpen}
-            onClose={onClose}
-          />
         </Box>
       </Box>
       <Box

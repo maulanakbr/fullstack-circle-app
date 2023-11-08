@@ -1,4 +1,4 @@
-import { Home, Profile, Thread, Timeline } from '@/pages';
+import { Home, Profile, Search, Thread, Timeline } from '@/pages';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
@@ -10,6 +10,10 @@ function App() {
     {
       path: '/signup',
       element: <Home auth="signup" />,
+    },
+    {
+      path: '/search',
+      element: <Search />,
     },
     {
       path: '/timeline',

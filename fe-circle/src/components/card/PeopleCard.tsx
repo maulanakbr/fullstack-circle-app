@@ -5,6 +5,7 @@ import {
   Card,
   CardBody,
   Heading,
+  HTMLChakraProps,
   Image,
   Text,
 } from '@chakra-ui/react';
@@ -13,7 +14,9 @@ import { Image as ImageIcon } from 'lucide-react';
 import useAuth from '@/hooks/useAuth';
 import { threadApi } from '@/app/apis/threadApi';
 
-interface PeopleCardProps extends React.ComponentProps<'div'> {}
+interface PeopleCardProps extends HTMLChakraProps<'div'> {
+  passthrough?: string;
+}
 
 export default function PeopleCard(props: PeopleCardProps) {
   const { auth } = useAuth({});
@@ -89,21 +92,23 @@ export default function PeopleCard(props: PeopleCardProps) {
                   </Text>
                 </Box>
               </Box>
-              <Box>
-                <Button
-                  variant="outline"
-                  w="5rem"
-                  color="inherit"
-                  rounded="20px"
-                  p="0.5rem"
-                  _hover={{ bg: 'pigments.secondary' }}
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                    handleFollow(e, user.id)
-                  }
-                >
-                  {isFollow ? 'Following' : 'Follow'}
-                </Button>
-              </Box>
+              {props.passthrough === 'search' ? null : (
+                <Box>
+                  <Button
+                    variant="outline"
+                    w="5rem"
+                    color="inherit"
+                    rounded="20px"
+                    p="0.5rem"
+                    _hover={{ bg: 'pigments.secondary' }}
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                      handleFollow(e, user.id)
+                    }
+                  >
+                    {isFollow ? 'Following' : 'Follow'}
+                  </Button>
+                </Box>
+              )}
             </Box>
           </CardBody>
         </Card>

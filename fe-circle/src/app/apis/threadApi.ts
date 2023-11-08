@@ -19,7 +19,7 @@ export type ThreadRequest = {
 export const threadApi = createApi({
   reducerPath: 'threadApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_BASE_URL,
+    baseUrl: 'http://localhost:5000/api/v1/',
   }),
   tagTypes: ['Threads', 'Users'],
   endpoints: build => ({
