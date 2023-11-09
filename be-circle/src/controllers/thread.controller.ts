@@ -4,6 +4,7 @@ import { Container } from 'typedi';
 
 import type { Thread } from '@/interfaces/thread.interface';
 import { uploadFile } from '@/utils/cloudinary';
+import client from '@/utils/redis';
 
 export class ThreadController {
   private thread = Container.get(ThreadService);
@@ -57,12 +58,11 @@ export class ThreadController {
   ) => {
     try {
       const session = res.locals.session;
-      const threadsBelongToUser = await this.thread.findThreadsBelongToUser(
-        session.id,
-      );
+
+      await this.thread.findThreadsBelongToUser(session.id);
 
       res.status(201).json({
-        data: threadsBelongToUser,
+        data: await client.get('threads-belong-to-user'),
         message: 'Found all threads belong to user',
       });
     } catch (error) {

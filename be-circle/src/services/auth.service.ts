@@ -40,6 +40,8 @@ export class AuthService extends UserRepository {
 
   public async checkIfSignedIn(payload: Response) {
     const session = payload.locals.session;
+
+    // const sessionCached= await client.get('sessionId')
     const currentUser = this.findUserById(session.id);
 
     return currentUser;

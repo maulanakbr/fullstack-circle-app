@@ -2,6 +2,7 @@ import { dbConnection } from '@/database';
 import { Repository } from 'typeorm';
 
 import { Thread } from '@/interfaces/thread.interface';
+import client from '@/utils/redis';
 import { ThreadEntity } from '@/entities/thread.entity';
 
 export default class ThreadRepository extends Repository<ThreadEntity> {
@@ -112,6 +113,8 @@ export default class ThreadRepository extends Repository<ThreadEntity> {
         },
       },
     });
+
+    await client.set('threads-belong-to-user', JSON.stringify(result));
 
     return result;
   }

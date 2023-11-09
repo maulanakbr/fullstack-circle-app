@@ -42,6 +42,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@upstash/redis": "^1.24.3",
     "amqplib": "^0.10.3",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
