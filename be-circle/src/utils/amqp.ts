@@ -1,15 +1,67 @@
-import { AMQPLIB_PORT } from '@/config';
-import amqplib from 'amqplib';
+import { RABBITMQ_HTTP_PORT } from '@/config';
+import client, { Channel, Connection } from 'amqplib';
 
-const server = `amqp://localhost:${AMQPLIB_PORT || 5011}`;
+import handleIncomingNotification from './handleIncomingNotification';
+import { logger } from './logger';
 
-export const amqplibConnection = async () => {
-  const connection = await amqplib.connect(server);
-  const channel = await connection.createChannel();
-  await channel.assertQueue('POSTTHREAD');
+class RabbitConnection {
+  connection!: Connection;
+  channel!: Channel;
+  private connected!: boolean;
 
-  return {
-    connection,
-    channel,
-  };
-};
+  public async connect() {
+    if (!this.connected && !this.channel) return;
+    else this.connected = true;
+
+    try {
+      this.connection = await client.connect(RABBITMQ_HTTP_PORT);
+      this.channel = await this.connection.createChannel();
+      this.connected = true;
+
+      logger.info('🚀 Listening to Rabbit-MQ Server');
+    } catch (error) {
+      logger.error(error);
+      logger.error('Not connected to Rabbit-MQ Server');
+    }
+  }
+
+  public async startListeningToNewMessages() {
+    const NOTIFICATION_QUEUE = '@nofification';
+
+    await this.channel.assertQueue(NOTIFICATION_QUEUE, {
+      durable: true,
+    });
+
+    this.channel.consume(
+      NOTIFICATION_QUEUE,
+      message => {
+        {
+          if (!message) {
+            return logger.error('Invalid incoming message');
+          }
+
+          handleIncomingNotification(message.content?.toString());
+
+          this.channel.ack(message);
+        }
+      },
+      { noAck: false },
+    );
+  }
+
+  public async sendToQueue(queue: string, message: any) {
+    try {
+      if (!this.channel) {
+        this.connect();
+      }
+
+      this.channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
+    } catch (error) {
+      logger.error(error);
+    }
+  }
+}
+
+const amqp = new RabbitConnection();
+
+export default amqp;

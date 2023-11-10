@@ -1,21 +1,11 @@
-import React from 'react';
 import { Box, type HTMLChakraProps } from '@chakra-ui/react';
 
-import { PeopleCard } from '../card';
-import { SearchPeopleForm } from '../form';
+import { SearchCard } from '../card';
 import { MainHeader } from '../layout';
 
 interface SearchSectionProps extends HTMLChakraProps<'section'> {}
 
 export default function SearchSection(props: SearchSectionProps) {
-  const [searchForm, setSearchForm] = React.useState<string>('');
-
-  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchForm(e.target.value);
-  };
-
-  console.log(searchForm);
-
   return (
     <Box
       {...props}
@@ -28,8 +18,7 @@ export default function SearchSection(props: SearchSectionProps) {
     >
       <MainHeader headertext="search" />
       <Box>
-        <SearchPeopleForm changeevent={onChangeSearch} />
-        <PeopleCard passthrough="search" />
+        <SearchCard />
       </Box>
     </Box>
   );

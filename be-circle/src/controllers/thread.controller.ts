@@ -3,6 +3,7 @@ import type { NextFunction, Request, Response } from 'express';
 import { Container } from 'typedi';
 
 import type { Thread } from '@/interfaces/thread.interface';
+import amqp from '@/utils/amqp';
 import { uploadFile } from '@/utils/cloudinary';
 import client from '@/utils/redis';
 
@@ -17,6 +18,9 @@ export class ThreadController {
     try {
       const threadData: Thread = req.body;
       threadData.user = res.locals.session.id;
+
+      await amqp.startListeningToNewMessages();
+      await amqp.sendToQueue('createThread', 'testing');
 
       const imgToUpload = req.file;
 
